@@ -1,0 +1,20 @@
+galaxy_info:
+  author: liam somerville
+  description: The world's fastest password cracker
+
+  license: MIT
+
+  min_ansible_version: 1.2
+
+  platforms:
+   - name: Ubuntu
+     versions:
+     - 16.04 LTS
+
+  galaxy_tags:
+    - pentest
+    - security
+    - passwords
+
+dependencies:
+  - leesoh.git
