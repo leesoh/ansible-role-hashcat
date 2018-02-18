@@ -1,7 +1,9 @@
 ---
-# Relevant info: https://hashcat.net/forum/archive/index.php?thread-6063-2.html
+# Relevant info: https://hashcat.net/forum/archive/index.php?thread-6063-1.html
 #                http://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#runfile-advanced
-- name: Configure blacklist-nouveau
+#                https://n0ur5blog.wordpress.com/2017/05/11/howto-crack-hashes-faster-in-the-cloud/
+
+- name: Blacklist Nouveau drivers (1/2)
   become: true
   blockinfile:
     create: yes
@@ -13,7 +15,7 @@
       alias nouveau off
       alias lbm-nouveau off
 
-- name: Configure nouveau-kms
+- name: Blacklist Nouveau drivers (2/2)
   become: true
   blockinfile:
     create: yes
