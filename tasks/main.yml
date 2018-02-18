@@ -36,7 +36,7 @@
     delay: 30
     timeout: 300
 
-    - name: Remove multiarch support
+- name: Remove multiarch support
   become: true
   command: dpkg --remove-architecture i386
 
@@ -89,6 +89,9 @@
   args:
     chdir: "{{ hashcat_git_location }}/hashcat"
 
-- name: Everything good?
-  become: true
+- name: Get card details
   command: nvidia-smi
+  register: status
+
+- name: Print results
+  debug: var=status.stdout
