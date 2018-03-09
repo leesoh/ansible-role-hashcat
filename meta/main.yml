@@ -9,7 +9,7 @@ galaxy_info:
   platforms:
    - name: Ubuntu
      versions:
-     - 16.04 LTS
+     - 16.04
 
   galaxy_tags:
     - pentest
