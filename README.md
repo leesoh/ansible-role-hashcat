@@ -1,29 +1,31 @@
 Hashcat
 =========
 
-World's fastest password cracker.
+Installs Hashcat and nVidia drivers.
 
 Requirements
 ------------
 
-No hard requirements, but this was built and tested against an AWS EC2 p3.8xlarge instance running Ubuntu 16.04 LTS.
+No hard requirements, but this was built and tested against an AWS EC2 p3.8xlarge instance running Ubuntu 16.04 LTS. Currently supports nVidia GPUs only.
 
 Role Variables
 --------------
 
-hashcat_git_location: '/opt'
+  hashcat_git_location: '/opt'
 
 Dependencies
 ------------
 
-leesoh.git
+- `leesoh.git`
 
 Example Playbook
 ----------------
 
- - hosts: servers
-   roles:
-     - { role: leesoh.hashcat }
+```yml
+  - hosts: servers
+    roles:
+    - leesoh.hashcat
+```
 
 License
 -------

@@ -1,6 +1,6 @@
 galaxy_info:
   author: liam somerville
-  description: The world's fastest password cracker
+  description: Install Hashcat and nVidia drivers.
 
   license: MIT
 
