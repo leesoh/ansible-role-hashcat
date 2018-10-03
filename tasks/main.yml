@@ -103,11 +103,17 @@
     dest: /tmp
     url: http://thesprawl.org/media/projects/PACK-0.0.4.tar.gz
 
+- name: Create PACK folder
+  become: true
+  file:
+    path: "{{ hashcat_git_location }}/PACK"
+    state: directory
+
 - name: Extract PACK
   become: true
   unarchive:
     src: /tmp/PACK-0.0.4.tar.gz
-    dest: /opt/PACK
+    dest: "{{ hashcat_git_location }}/PACK"
     remote_src: true
 
 - name: Download hashcat-utils
