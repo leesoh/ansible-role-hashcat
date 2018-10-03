@@ -28,7 +28,7 @@
   command: update-initramfs -u
 
 - name: Reboot host
-  become: true  
+  become: true
   shell: sleep 2 && shutdown -r now
   async: 1
   poll: 0
@@ -58,7 +58,7 @@
 - name: Install Linux headers
   become: true
   shell: apt install linux-headers-$(uname -r)
-  
+
 - name: Download nVidia Drivers
   become: true
   get_url:
@@ -97,3 +97,29 @@
 
 - name: Print results
   debug: var=status.stdout
+
+- name: Download PACK
+  get_url:
+    dest: /tmp
+    url: http://thesprawl.org/media/projects/PACK-0.0.4.tar.gz
+
+- name: Extract PACK
+  become: true
+  unarchive:
+    src: /tmp/PACK-0.0.4.tar.gz
+    dest: /opt/PACK
+    remote_src: true
+
+- name: Download hashcat-utils
+  become: true
+  git:
+    repo: https://github.com/hashcat/hashcat-utils.git
+    dest: "{{ hashcat_git_location }}/hashcat-utils"
+    update: yes
+  register: hashcat-utils
+
+- name: Build hashcat-utils
+  become: true
+  when: hashcat-utils.changed
+  make:
+    chdir: "{{ hashcat_git_location}/hashcat-utils/src"
