@@ -2,6 +2,18 @@
 # Relevant info: https://hashcat.net/forum/archive/index.php?thread-6063-1.html
 #                http://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#runfile-advanced
 #                https://n0ur5blog.wordpress.com/2017/05/11/howto-crack-hashes-faster-in-the-cloud/
+- set_fact:
+    ansible_distro: "{{ ansible_distribution|lower|replace(' ', '_')|replace('/', '-') }}"
+
+- name: Gather OS-specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+      - "{{ ansible_distro }}-{{ansible_distribution_version|lower|replace('/', '_') }}.yml"
+      - "{{ ansible_distro }}-{{ ansible_distribution_release }}.yml"
+      - "{{ ansible_distro }}-{{ansible_distribution_major_version|lower|replace('/', '_') }}.yml"
+      - "{{ ansible_distro }}.yml"
+      - "{{ ansible_os_family|lower }}.yml"
 
 - name: Blacklist Nouveau drivers (1/2)
   become: true
@@ -46,14 +58,10 @@
   become: true
   when: ansible_os_family == "Debian"
   apt:
-    name: "{{ item }}"
+    name: "{{ hashcat_packages }}"
     update_cache: yes
     state: latest
 
-  with_items:
-    - build-essential
-    - p7zip-full
-    - linux-image-extra-virtual
 
 - name: Install Linux headers
   become: true
